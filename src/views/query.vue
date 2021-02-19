@@ -5,12 +5,19 @@
 </template>
 
 <script>
-import roles from '../data/role'
 
 export default {
   data () {
     return {
-      list: roles
+      list: []
+    }
+  },
+  created() {
+    this.getList()
+  },
+  methods: {
+    async getList() {
+
     }
   }
 }

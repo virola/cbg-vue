@@ -11,7 +11,7 @@
       <van-collapse v-model="activeNames">
         <van-collapse-item title="基础信息" name="1">
           <h4>basic_info</h4>
-          <div><strong>{{config.special_prof_data[basic_info.special_prof_id + '_' + basic_info.special_prof_level].name}}</strong></div>
+          <div v-if="basic_info.special_prof_id"><strong>{{config.special_prof_data[basic_info.special_prof_id + '_' + basic_info.special_prof_level].name}}</strong></div>
           <van-divider />
 
           <h4>庄园信息</h4>
@@ -306,6 +306,7 @@ export default {
       PROF_MAP,
       MONEY_MAP,
       info: {},
+      basic_info: {},
       desc: {},
       activeNames: [ '4' ],
       BUILDING_OBJECT_MAP,
@@ -336,19 +337,25 @@ export default {
       if (this.$route.query.data) {
         this.file = this.$route.query.data
       }
-
-      const Data = require('../data/role/' + this.file + '.json')
-      const data = {}
-      for (const key in Data.equip) {
-        if (Data.equip.hasOwnProperty(key) && ATTR_MAP[key]) {
-          data[key] = Data.equip[key]
-          if (key.indexOf('price') > -1) {
-            data[key] = (Data.equip[key] / 100).toFixed(2)
+      try {
+        const Data = require('../data/role/' + this.file + '.json')
+        const roleData = {}
+        for (const key in Data.equip) {
+          if (Data.equip.hasOwnProperty(key) && ATTR_MAP[key]) {
+            roleData[key] = Data.equip[key]
+            if (key.indexOf('price') > -1) {
+              roleData[key] = (Data.equip[key] / 100).toFixed(2)
+            }
           }
         }
+        this.info = roleData
+        this.getDesc(Data)
+      } catch (err) {
+        this.$toast('没有数据')
+        // this.$router.back()
       }
-      this.info = data
-      this.getDesc(Data)
+
+
     },
     getDesc(Data) {
       const desc = JSON.parse(Data.equip.equip_desc)

@@ -3,8 +3,7 @@ const roles = []
 
 // key是相对路径名
 files.keys().forEach(key => {
-    // const name = files(key).default.name
-    roles.push(files(key).default)
+  roles.push(files(key))
 })
 
 export default roles
