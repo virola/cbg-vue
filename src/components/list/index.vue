@@ -7,17 +7,24 @@
         size="large"
         :label="`${item.server_name} / ${item.level_desc}`"
         @click="goDetail(item)"
+        is-link
       >
         <template #title>
-          <div class="custom-title"><van-tag plain type="danger">{{item.price / 100}}</van-tag><span>{{item.format_equip_name}}</span><van-tag type="danger" v-if="item.allow_bargain">还</van-tag></div>
+          <div class="full-width flex">
+            <div class="custom-title">
+              <van-tag type="primary" v-if="!item.pass_fair_show">公</van-tag>
+              <van-tag type="danger" v-if="item.allow_bargain">还</van-tag>
+              <span>{{item.format_equip_name}}</span>
+            </div>
+            <van-tag plain type="danger">{{item.price / 100}}</van-tag>
+          </div>
           <van-tag plain type="primary" v-for="(tag, ti) in item.highlights" :key="ti">{{tag}}</van-tag>
         </template>
         <template #label>
           <div>
             {{`${item.server_name} / ${item.level_desc}`}}
           </div>
-          <div>{{item.game_ordersn}}</div>
-          <div>{{item.serverid}}</div>
+          <div>{{item.serverid}}/{{item.game_ordersn}}</div>
         </template>
       </van-cell>
     </van-list>
@@ -65,4 +72,13 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.full-width {
+  width: 100%;
+}
+</style>
