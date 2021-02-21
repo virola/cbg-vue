@@ -58,7 +58,7 @@
               <th>value</th>
             </tr>
             <tr v-for="(item, key) in desc.recipe_achive_info" :key="key">
-              <td>{{key}} / {{config.recipe_achievement[item.kind].name}}</td>
+              <td>{{key}} / {{config.recipe_achievement[item.kind] && config.recipe_achievement[item.kind].name}}</td>
               <td><div v-for="(tmp, tmpKey) in item" :key="tmpKey">{{tmpKey}}:{{tmp}}</div></td>
             </tr>
           </table>
@@ -251,9 +251,11 @@
 </template>
 
 <script>
-import config from '@/data/game_config'
+// import config from '@/data/game_config'
 import dayjs from 'dayjs'
 // { all_equips_data }
+
+const config = window.CBG_GAME_CONFIG
 
 const ATTR_MAP = {
   level_desc: '等级',
@@ -476,7 +478,7 @@ export default {
       // 分类
       const dataMap = {}
       target.forEach(key => {
-        dataMap[key] = result.filter(item => item.name.indexOf(key) > -1)
+        dataMap[key] = result.filter(item => item && item.name.indexOf(key) > -1)
       })
 
       return dataMap
