@@ -43,10 +43,6 @@ export default {
       loading: false,
       finished: true,
       listLoading: false,
-      platform: {
-        1: '安卓',
-        2: ''
-      }
     }
   },
   created() {
