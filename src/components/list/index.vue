@@ -46,7 +46,7 @@ import listData from './data'
 export default {
   data() {
     return {
-      platform: '',
+      platform: 2,
       page: 0,
       list: [],
       loading: false,
