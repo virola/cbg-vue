@@ -13,7 +13,7 @@ export default {
   name: 'app',
   data () {
     return {
-      list: [ 'tian' ]
+      list: [ '150' ]
     }
   }
 }

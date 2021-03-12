@@ -1,5 +1,12 @@
 <template>
   <div>
+    <div>
+      <van-radio-group v-model="platform" direction="horizontal">
+        <van-radio name="">All</van-radio>
+        <van-radio :name="2">Android</van-radio>
+        <van-radio :name="1">IOS</van-radio>
+      </van-radio-group>
+    </div>
     <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="getList">
       <van-cell
         v-for="(item, index) in list"
@@ -8,6 +15,7 @@
         :label="`${item.server_name} / ${item.level_desc}`"
         @click="goDetail(item)"
         is-link
+        v-show="!platform || platform == item.platform_type"
       >
         <template #title>
           <div class="full-width flex">
@@ -25,7 +33,7 @@
             {{ `${item.server_name} / ${item.level_desc}` }} /
             <i class="icon" :class="{ 'icon-android': item.platform_type == 2, 'icon-ios': item.platform_type == 1 }"></i>
           </div>
-          <div>{{ item.serverid }}/{{ item.game_ordersn }}</div>
+          <div>{{ item.serverid }}/ <span>{{ item.game_ordersn }}</span></div>
         </template>
       </van-cell>
     </van-list>
@@ -38,6 +46,7 @@ import listData from './data'
 export default {
   data() {
     return {
+      platform: '',
       page: 0,
       list: [],
       loading: false,
