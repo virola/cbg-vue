@@ -83,7 +83,7 @@
           equipped
           <table aria-describedby="equipped">
             <tr>
-              <th>名字</th>
+              <th width="120">名字</th>
               <th>评分</th>
             </tr>
             <tr v-for="(item, key) in desc.equipped" :key="key">
@@ -92,6 +92,7 @@
                 <div>评分：{{item.score}} / 基础评分：{{item.base_score}}</div>
                 <div>制作者：{{item._pn}}</div>
                 <div>星级：{{item.slevel}}</div>
+                <div>{{config.all_equips_data[item.item_id].desc}}</div>
               </td>
             </tr>
           </table>
@@ -143,12 +144,13 @@
                 <tr v-for="(item, index) in list" :key="index">
                   <td>{{item.name}}</td>
                   <td>
-                    <div>ui_type / {{item.ui_type}} / {{config.recipe_ui_type_name[item.ui_type]}}</div>
+                    <!-- <div>ui_type / {{item.ui_type}} / {{config.recipe_ui_type_name[item.ui_type]}}</div> -->
                     <div v-if="item._uc > 0">_uc：{{item._uc}}</div>
-                    <div v-if="item.score">评分：{{item.score}} / <span v-if="item._rl">进阶：{{item._rl}}</span></div>
-                    <div v-if="item.score">
+                    <div v-if="item.score">评分：{{item.score}}</div>
+                    <div v-if="item._rl"><strong>进阶：{{item._rl}}</strong></div>
+                    <!-- <div v-if="item.score">
                       <div v-for="(tmp, j) in item.attrs" :key="j">{{tmp[0]}}：{{tmp[1]}}</div>
-                    </div>
+                    </div> -->
                   </td>
                 </tr>
               </table>
